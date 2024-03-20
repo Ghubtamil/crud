@@ -13,7 +13,7 @@ app.use("/",Rolerouter)
 const connectDB = async(req,res)=>{
     try {
         await mongoose.connect(process.env.mongodb_url)
-        console.log("database connected")
+        console.log("database connectedggggg")
     } catch (error) {
         
     }
