@@ -1,0 +1,70 @@
+import Role from "../models/Role.js";
+
+export const createRole = async (req, res) => {
+  try {
+    const { pname, page } = req.body;
+    const newRole = await new Role({ pname: pname, page: page });
+    await newRole.save();
+    return res.send("Role created");
+  } catch (error) {
+    return res.send("Role not created");
+  }
+};
+
+export const getAll = async (req, res) => {
+  try {
+    const allRole = await Role.find({});
+    return res.send(allRole);
+  } catch (error) {
+    return res.send("Internal server error");
+  }
+};
+
+export const getAllById =async(req,res)=>{
+  try {
+    const roleId = req.params.id;
+    const allRoleById = await Role.findById({_id:roleId});
+    return res.send(allRoleById);
+  } catch (error) {
+    return res.send("ISE")
+  }
+}
+
+export const updateRole = async (req, res) => {
+  try {
+    const updateID = req.params.id;
+    const roleUpdate = await Role.findById({ _id: updateID });
+    if (roleUpdate) {
+      const newData = await Role.findByIdAndUpdate(
+        updateID,
+        { $set: req.body },
+        { new: true }
+      );
+      return res.send("update successfully");
+    } else {
+      return res.send("Not update ");
+    }
+  } catch (error) {
+    return res.send("ISE");
+  }
+};
+
+export const deleteRole = async (req, res) => {
+  try {
+    const deleteID = req.params.id;
+    const roleDelete = await Role.findById({ _id: deleteID });
+    if (roleDelete) {
+      const newData = await Role.findByIdAndDelete(
+        deleteID,
+        { $set: req.body },
+        { new: true }
+      );
+      return res.send("delete successfully");
+    } else {
+      return res.send("Not delete ");
+    }
+  } catch (error) {
+    return res.send("ISE");
+  }
+};
+
