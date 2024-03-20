@@ -39,7 +39,7 @@ export const updateRole = async(req,res)=>{
         const roleUpdate = await Role.findById({_id:updateID});
         if (roleUpdate) {
             const newData = await Role.findByIdAndUpdate(updateID,{$set:req.body},{new:true});
-            return res.send("role update");
+            return res.send("role update brach");
         } else {
             return res.send("role not update");
             
